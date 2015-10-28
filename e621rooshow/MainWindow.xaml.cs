@@ -31,8 +31,9 @@ namespace e621rooshow
         private ConcurrentQueue<string> filesToDownload = new ConcurrentQueue<string>();
 
         //queue containing images to display
-        private ConcurrentQueue<byte[]> filesToDisplay = new ConcurrentQueue<byte[]>();
-
+        private object filesToDisplayLock = new object();
+        private List<byte[]> filesToDisplay = new List<byte[]>();
+        private int imageIndex = 0;
 
 
         System.Windows.Threading.DispatcherTimer displayTimer;
@@ -40,7 +41,7 @@ namespace e621rooshow
         public MainWindow()
         {
             InitializeComponent();
-            displayTimer = new DispatcherTimer(TimeSpan.FromSeconds(Settings.Default.Interval), DispatcherPriority.Background, (s, e) => DisplayFile(), this.Dispatcher);
+            displayTimer = new DispatcherTimer(TimeSpan.FromSeconds(Settings.Default.Interval), DispatcherPriority.Background, (s, e) => DisplayFileTimer(), this.Dispatcher);
 
             var thread = new Thread(new ThreadStart(DownloadFiles));
             thread.Priority = ThreadPriority.BelowNormal;
@@ -55,15 +56,39 @@ namespace e621rooshow
             blackList = (Settings.Default.TagsBlacklist ?? string.Empty).ToLower().Split(' ').ToList();
         }
 
-
-        private void DisplayFile()
+        private void DisplayFileTimer()
         {
-            byte[] fileToDisplay = null;
-            if (!filesToDisplay.TryDequeue(out fileToDisplay))
-                return;
-            Image.Source = LoadImage(fileToDisplay);
+            lock (filesToDisplayLock)
+            {
+                if (this.imageIndex < 20)
+                    this.imageIndex++;
+                else
+                    this.filesToDisplay.RemoveAt(0);
 
-            System.Diagnostics.Trace.WriteLine($"{filesToDisplay.Count} files left to display");
+                if (this.imageIndex > 20)
+                    this.imageIndex = 20;
+
+                DisplayFile(this.imageIndex);
+            }
+        }
+
+        private void DisplayFile(int index)
+        {
+            lock (filesToDisplayLock)
+            {
+                if (filesToDisplay.Count == 0)
+                    return;
+
+                if (index > (filesToDisplay.Count - 1))
+                    index = filesToDisplay.Count - 1;
+
+                if (index < 0)
+                    return;
+
+                byte[] fileToDisplay = filesToDisplay[index];
+                Image.Source = LoadImage(fileToDisplay);
+                System.Diagnostics.Trace.WriteLine($"{filesToDisplay.Count} files left to display, index {index}");
+            }
         }
 
 
@@ -90,7 +115,7 @@ namespace e621rooshow
         {
             while (true)
             {
-                if (filesToDisplay.Count < 19)
+                if (filesToDisplay.Count < 40)
                     try
                     {
                         DownloadFile();
@@ -112,7 +137,10 @@ namespace e621rooshow
             using (var client = new System.Net.WebClient())
             {
                 System.Diagnostics.Trace.WriteLine($"Downloading {fileToDownload} {filesToDownload.Count} remaining");
-                filesToDisplay.Enqueue(client.DownloadData(fileToDownload));
+                var file = client.DownloadData(fileToDownload);
+                lock (this.filesToDisplayLock)
+                    filesToDisplay.Add(file);
+
             }
         }
 
@@ -187,11 +215,8 @@ namespace e621rooshow
         private void MenuItem_Click_3(object sender, RoutedEventArgs e) => UpdateInterval(5);
         private void MenuItem_Click_4(object sender, RoutedEventArgs e) => UpdateInterval(10);
         private void MenuItem_Click_5(object sender, RoutedEventArgs e) => UpdateInterval(20);
-
         private void MenuItem_Click_6(object sender, RoutedEventArgs e) => UpdateInterval(30);
-
         private void MenuItem_Click_7(object sender, RoutedEventArgs e) => UpdateInterval(60);
-
         private void MenuItem_Click_8(object sender, RoutedEventArgs e) => UpdateInterval(120);
 
         private void MenuItem_Click_9(object sender, RoutedEventArgs e)
@@ -217,12 +242,47 @@ namespace e621rooshow
 
         private void ClearData()
         {
-            string ignored;
-            while (filesToDownload.TryDequeue(out ignored)) ;
+            lock (this.filesToDisplayLock)
+            {
+                string ignored;
+                while (filesToDownload.TryDequeue(out ignored)) ;
+                filesToDisplay.Clear();
+                this.imageIndex = 0;
+            }
+        }
 
-            byte[] crap;
+        private void Window_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Space:
+                    this.displayTimer.IsEnabled = !this.displayTimer.IsEnabled;
+                    break;
 
-            while (filesToDisplay.TryDequeue(out crap)) ;
+                case Key.Left:
+                    DisplayNext(-1);
+                    break;
+
+                case Key.Right:
+                    DisplayNext(1);
+                    break;
+            }
+        }
+
+        private void DisplayNext(int next)
+        {
+            lock (this.filesToDisplayLock)
+            {
+                this.imageIndex += next;
+
+                if (this.imageIndex > this.filesToDisplay.Count - 1)
+                    this.imageIndex = this.filesToDisplay.Count - 1;
+
+                if (this.imageIndex < 0)
+                    this.imageIndex = 0;
+
+                DisplayFile(this.imageIndex);
+            }
         }
     }
 }
