@@ -115,7 +115,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="NewFolder1\" />
+    <ProjectReference Include="..\e621rooshow.Controls\e621rooshow.Controls.csproj">
+      <Project>{54886378-ebd3-48fc-a8c5-4d8ca4d00028}</Project>
+      <Name>e621rooshow.Controls</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

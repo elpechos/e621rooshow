@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:e621rooshow"
         mc:Ignorable="d"
+        xmlns:custom="clr-namespace:e621rooshow.Controls;assembly=e621rooshow.Controls"
         Title="Matthew Roo's e621 SlideShow!" Height="350" Width="525" KeyUp="Window_KeyUp">
     <Grid>
-        <Image RenderOptions.BitmapScalingMode="NearestNeighbor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  RenderOptions.EdgeMode="Aliased" x:Name="Image">
-            
-        </Image>
+        <Border>
+            <custom:PanAndZoomImage  RenderTransformOrigin="0.5,0.5" RenderOptions.BitmapScalingMode="NearestNeighbor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  RenderOptions.EdgeMode="Aliased" x:Name="Image">
+            </custom:PanAndZoomImage>
+        </Border>
     </Grid>
     <Window.ContextMenu>
         <ContextMenu>
