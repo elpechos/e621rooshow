@@ -88,6 +88,7 @@ namespace e621rooshow
                 byte[] fileToDisplay = filesToDisplay[index];
                 Image.Source = LoadImage(fileToDisplay);
                 System.Diagnostics.Trace.WriteLine($"{filesToDisplay.Count} files left to display, index {index}");
+                Image.Reset();
             }
         }
 

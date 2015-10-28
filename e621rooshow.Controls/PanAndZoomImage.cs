@@ -36,6 +36,8 @@ namespace e621rooshow.Controls
         {
             var st = GetScaleTransform();
             double zoom = e.Delta > 0 ? .2 : -.2;
+            if (!(e.Delta > 0) && (st.ScaleX < .4 || st.ScaleY < .4))
+                return;
             st.ScaleX += zoom;
             st.ScaleY += zoom;
         }
@@ -82,6 +84,20 @@ namespace e621rooshow.Controls
                 tt.X = origin.X - (v.X);
                 tt.Y = origin.Y - (v.Y);
             }
+        }
+
+
+        public void Reset()
+        {
+            // reset zoom
+            var st = GetScaleTransform();
+            st.ScaleX = 1.0;
+            st.ScaleY = 1.0;
+
+            // reset pan
+            var tt = GetTranslateTransform();
+            tt.X = 0.0;
+            tt.Y = 0.0;
         }
 
     }
