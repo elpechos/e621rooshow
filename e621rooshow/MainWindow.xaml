@@ -15,23 +15,23 @@
         <ContextMenu>
             <MenuItem  Header="Tags" Click="MenuItem_Click_9">
             </MenuItem>
-            <MenuItem  Header="Tags Blacklist" Click="MenuItem_Click_10">
+            <MenuItem  Header="Tags black list" Click="MenuItem_Click_10">
             </MenuItem>
-            <MenuItem  Header="1 second" Click="MenuItem_Click_1">
+            <MenuItem  Header="1 seconds" Click="MenuItem_Click_1">
             </MenuItem>
-            <MenuItem  Header="2 second" Click="MenuItem_Click_2">
+            <MenuItem  Header="2 seconds" Click="MenuItem_Click_2">
             </MenuItem>
-            <MenuItem  Header="5 second" Click="MenuItem_Click_3">
+            <MenuItem  Header="5 seconds" Click="MenuItem_Click_3">
             </MenuItem>
-            <MenuItem  Header="10 second" Click="MenuItem_Click_4">
+            <MenuItem  Header="10 seconds" Click="MenuItem_Click_4">
             </MenuItem>
-            <MenuItem  Header="20 second" Click="MenuItem_Click_5">
+            <MenuItem  Header="20 seconds" Click="MenuItem_Click_5">
             </MenuItem>
-            <MenuItem  Header="30 second" Click="MenuItem_Click_6">
+            <MenuItem  Header="30 seconds" Click="MenuItem_Click_6">
             </MenuItem>
-            <MenuItem  Header="60 second" Click="MenuItem_Click_7">
+            <MenuItem  Header="60 seconds" Click="MenuItem_Click_7">
             </MenuItem>
-            <MenuItem  Header="Two Minutes" Click="MenuItem_Click_8">
+            <MenuItem  Header="120 seconds" Click="MenuItem_Click_8">
             </MenuItem>
         </ContextMenu>
     </Window.ContextMenu>
