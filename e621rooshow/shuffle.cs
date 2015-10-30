@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace E621RooShow
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class ThreadSafeRandom
     {
         [ThreadStatic]

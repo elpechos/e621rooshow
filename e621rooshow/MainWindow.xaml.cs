@@ -39,6 +39,7 @@ namespace E621RooShow
             Image.Dispatcher.Invoke(
                 () =>
                     {
+                        Trace.WriteLine("Image Changed");
                         Image.Source = LoadImage(MainViewer.CurrentImage.Data);
                         Image.Reset();
                     }
