@@ -36,7 +36,13 @@ namespace E621RooShow
 
         private void MainViewer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            Image.Dispatcher.Invoke(() => Image.Source = LoadImage(MainViewer.CurrentImage.Data));
+            Image.Dispatcher.Invoke(
+                () =>
+                    {
+                        Image.Source = LoadImage(MainViewer.CurrentImage.Data);
+                        Image.Reset();
+                    }
+                );
         }
 
         private static BitmapImage LoadImage(byte[] imageData)
