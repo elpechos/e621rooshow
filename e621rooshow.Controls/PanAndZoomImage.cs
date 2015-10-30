@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace e621rooshow.Controls
+namespace E621RooShow.Controls.Windows
 {
     public class PanAndZoomImage : Image
     {

@@ -1,5 +1,4 @@
-﻿using E621RooShow.XmlApi;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-namespace E621RooShow.XmlApi
+namespace E621RooShow.Services
 {
     public class E621Client
     {

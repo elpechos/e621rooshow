@@ -7,13 +7,14 @@
     <ProjectGuid>{405EAFC7-733C-40FF-A48D-DCB9A8506110}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>e621rooshow</RootNamespace>
-    <AssemblyName>e621rooshow</AssemblyName>
+    <RootNamespace>E621RooShow.Windows</RootNamespace>
+    <AssemblyName>E621RooShow.Windows</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,7 +27,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -115,9 +115,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\e621rooshow.Controls\e621rooshow.Controls.csproj">
+    <ProjectReference Include="..\e621rooshow.Controls\E621RooShow.Windows.Controls.csproj">
       <Project>{54886378-ebd3-48fc-a8c5-4d8ca4d00028}</Project>
-      <Name>e621rooshow.Controls</Name>
+      <Name>E621RooShow.Windows.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\e621rooshow.Services\E621RooShow.Services.csproj">
+      <Project>{a8d9d464-582c-4dcb-b48c-78c8565bc18b}</Project>
+      <Name>E621RooShow.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\E621RooShow.ViewModels\E621RooShow.ViewModels.csproj">
+      <Project>{4586e697-b659-4f79-bbb1-dec3a54f163a}</Project>
+      <Name>E621RooShow.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

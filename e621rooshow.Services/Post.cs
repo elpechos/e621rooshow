@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace E621RooShow.XmlApi
+namespace E621RooShow.Services
 {
     [XmlRoot(ElementName = "posts")]
     public class PornPage
@@ -27,6 +27,9 @@ namespace E621RooShow.XmlApi
 
         [XmlAttribute("tags")]
         public string Tags { get; set; }
+
+        [XmlAttribute("id")]
+        public string Id { get; set; }
 
         public List<String> TagList
         {

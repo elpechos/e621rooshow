@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e621rooshow", "e621rooshow\e621rooshow.csproj", "{405EAFC7-733C-40FF-A48D-DCB9A8506110}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E621RooShow.Windows", "e621rooshow\E621RooShow.Windows.csproj", "{405EAFC7-733C-40FF-A48D-DCB9A8506110}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e621rooshow.Controls", "e621rooshow.Controls\e621rooshow.Controls.csproj", "{54886378-EBD3-48FC-A8C5-4D8CA4D00028}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E621RooShow.Windows.Controls", "e621rooshow.Controls\E621RooShow.Windows.Controls.csproj", "{54886378-EBD3-48FC-A8C5-4D8CA4D00028}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E621RooShow.Services", "e621rooshow.Services\E621RooShow.Services.csproj", "{A8D9D464-582C-4DCB-B48C-78C8565BC18B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E621RooShow.ViewModels", "E621RooShow.ViewModels\E621RooShow.ViewModels.csproj", "{4586E697-B659-4F79-BBB1-DEC3A54F163A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{54886378-EBD3-48FC-A8C5-4D8CA4D00028}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54886378-EBD3-48FC-A8C5-4D8CA4D00028}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54886378-EBD3-48FC-A8C5-4D8CA4D00028}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8D9D464-582C-4DCB-B48C-78C8565BC18B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8D9D464-582C-4DCB-B48C-78C8565BC18B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8D9D464-582C-4DCB-B48C-78C8565BC18B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8D9D464-582C-4DCB-B48C-78C8565BC18B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4586E697-B659-4F79-BBB1-DEC3A54F163A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4586E697-B659-4F79-BBB1-DEC3A54F163A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4586E697-B659-4F79-BBB1-DEC3A54F163A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4586E697-B659-4F79-BBB1-DEC3A54F163A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,11 +1,11 @@
-﻿<Window x:Class="e621rooshow.MainWindow"
+﻿<Window x:Class="E621RooShow.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:e621rooshow"
+        xmlns:local="clr-namespace:E621RooShow"
         mc:Ignorable="d"
-        xmlns:custom="clr-namespace:e621rooshow.Controls;assembly=e621rooshow.Controls"
+        xmlns:custom="clr-namespace:E621RooShow.Controls.Windows;assembly=E621RooShow.Windows.Controls"
         Title="Matthew Roo's e621 SlideShow!" Height="350" Width="525" KeyUp="Window_KeyUp">
     <Grid>
         <Border>
@@ -15,25 +15,25 @@
     </Grid>
     <Window.ContextMenu>
         <ContextMenu>
-            <MenuItem  Header="Tags" Click="MenuItem_Click_9">
+            <MenuItem  Header="Tags" Click="MenuItem_Click_Tags">
             </MenuItem>
-            <MenuItem  Header="Tags black list" Click="MenuItem_Click_10">
+            <MenuItem  Header="Tags black list" Click="MenuItem_Click_Blacklist">
             </MenuItem>
-            <MenuItem  Header="1 seconds" Click="MenuItem_Click_1">
+            <MenuItem  Header="1 seconds" Click="MenuItem_Click_1_Second">
             </MenuItem>
-            <MenuItem  Header="2 seconds" Click="MenuItem_Click_2">
+            <MenuItem  Header="2 seconds" Click="MenuItem_Click_2_Second">
             </MenuItem>
-            <MenuItem  Header="5 seconds" Click="MenuItem_Click_3">
+            <MenuItem  Header="5 seconds" Click="MenuItem_Click_5_Second">
             </MenuItem>
-            <MenuItem  Header="10 seconds" Click="MenuItem_Click_4">
+            <MenuItem  Header="10 seconds" Click="MenuItem_Click_10_Second">
             </MenuItem>
-            <MenuItem  Header="20 seconds" Click="MenuItem_Click_5">
+            <MenuItem  Header="20 seconds" Click="MenuItem_Click_20_Second">
             </MenuItem>
-            <MenuItem  Header="30 seconds" Click="MenuItem_Click_6">
+            <MenuItem  Header="30 seconds" Click="MenuItem_Click_30_Second">
             </MenuItem>
-            <MenuItem  Header="60 seconds" Click="MenuItem_Click_7">
+            <MenuItem  Header="60 seconds" Click="MenuItem_Click_60_Second">
             </MenuItem>
-            <MenuItem  Header="120 seconds" Click="MenuItem_Click_8">
+            <MenuItem  Header="120 seconds" Click="MenuItem_Click_120_Second">
             </MenuItem>
         </ContextMenu>
     </Window.ContextMenu>

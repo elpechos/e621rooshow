@@ -7,8 +7,8 @@
     <ProjectGuid>{54886378-EBD3-48FC-A8C5-4D8CA4D00028}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>e621rooshow.Controls</RootNamespace>
-    <AssemblyName>e621rooshow.Controls</AssemblyName>
+    <RootNamespace>E621RooShow.Windows.Controls</RootNamespace>
+    <AssemblyName>E621RooShow.Windows.Controls</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

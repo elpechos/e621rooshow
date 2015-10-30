@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace e621rooshow
+namespace E621RooShow.Windows
 {
     /// <summary>
     /// Interaction logic for App.xaml

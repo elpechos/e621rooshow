@@ -8,12 +8,10 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace e621rooshow
+namespace E621RooShow
 {
     public class InputBox : Window
     {
-
-        int FontSize = 12;//fontsize for the input
         StackPanel sp1 = new StackPanel();// items container
         string title = "InputBox";//title as heading
         string boxcontent;//title

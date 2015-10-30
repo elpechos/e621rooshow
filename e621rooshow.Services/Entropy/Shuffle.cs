@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace E621RooShow
+namespace E621RooShow.Services.Entropy
 {
     public static class ThreadSafeRandom
     {
@@ -18,7 +18,7 @@ namespace E621RooShow
         }
     }
 
-    static class MyExtensions
+    public static class MyExtensions
     {
         public static void Shuffle<T>(this IList<T> list)
         {
