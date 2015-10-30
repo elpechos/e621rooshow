@@ -78,7 +78,7 @@ namespace E621RooShow.Linux
                 var newSize = ImageAspectRatio.ResizeFit(originalSize, maxSize);
                 var newPosition = ImageAspectRatio.Center(newSize, maxSize);
 
-                using (var newPixBuf = currentPixbuf.ScaleSimple(newSize.Item1, newSize.Item2, Gdk.InterpType.Nearest))
+                using (var newPixBuf = currentPixbuf.ScaleSimple(newSize.Item1, newSize.Item2, Gdk.InterpType.Hyper))
                 using (var gc = new Gdk.GC(evnt.Window))
                 {
                     evnt.Window.DrawPixbuf(gc, newPixBuf, 0, 0, newPosition.Item1, newPosition.Item2, newSize.Item1, newSize.Item2, Gdk.RgbDither.None, 0, 0);
