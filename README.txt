@@ -4,12 +4,13 @@ An application to display a slideshow from e621
 
 ==How to use ==
 It supports the following controls
-*Right click to set display interval, tags, and tags-blacklist
-*Space to pause
-*Left and right arrow keys to browse through buffered images
-*Enter brings up the e621 post web-page for the current image.
-*Mousewheel zoom
-*Left click and drag pans the image
+*Right click - Set display interval, tags, and tags-blacklist
+*Space - Pause
+*F - Fullscreen
+*Left and right arrow keys - Browse through buffered images
+*Enter - Brings up the e621 post web-page for the current image.
+*Mousewheel - Aoom
+*Left click and drag - Pans the image
 
 Enjoy!
 
