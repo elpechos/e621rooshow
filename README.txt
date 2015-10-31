@@ -32,3 +32,6 @@ mono E621RooShow.Linux.exe
 
 If people could send me instructions for other distributions I'd be happy to include them.
 
+==Configuration==
+
+In the .config file you can change the background colour by setting a RGB value from 0,0,0 to 255,255,255
