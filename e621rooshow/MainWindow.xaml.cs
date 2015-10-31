@@ -10,9 +10,11 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-
+using MColor = System.Windows.Media.Color;
+using DColor = System.Drawing.Color;
 namespace E621RooShow
 {
     /// <summary>
@@ -26,7 +28,7 @@ namespace E621RooShow
         public MainWindow()
         {
             InitializeComponent();
-
+            this.Background = new SolidColorBrush(ToMediaColor(Settings.Default.BackgroundColor));
             MainViewer.BlackList = Settings.Default.TagsBlacklist;
             MainViewer.WhiteList = Settings.Default.Tags;
             MainViewer.Interval = Settings.Default.Interval;
@@ -88,8 +90,10 @@ namespace E621RooShow
         }
 
 
+        private bool isFullScreen = false;
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
+
             switch (e.Key)
             {
                 case Key.Space:
@@ -104,12 +108,40 @@ namespace E621RooShow
                     MainViewer.Next();
                     break;
 
+                case Key.F:
+                    FullScreen = !FullScreen;
+                    break;
+
                 case Key.Enter:
                     Process.Start(MainViewer.CurrentImage.E621Url);
                     break;
             }
         }
 
+        private bool _isFullScreen = false;
+        protected bool FullScreen
+        {
+            get
+            {
+                return _isFullScreen;
+            }
+            set
+            {
+                if (value)
+                {
+                    this.WindowState = WindowState.Maximized;
+                    this.WindowStyle = WindowStyle.None;
+                    Hide();
+                    Show();
+                }
+                else
+                {
+                    this.WindowState = WindowState.Normal;
+                    this.WindowStyle = WindowStyle.SingleBorderWindow;
+                }
+                _isFullScreen = value;
+            }
+        }
 
 
         private void MenuItem_Click_1_Second(object sender, RoutedEventArgs e) => UpdateInterval(1);
@@ -120,5 +152,11 @@ namespace E621RooShow
         private void MenuItem_Click_30_Second(object sender, RoutedEventArgs e) => UpdateInterval(30);
         private void MenuItem_Click_60_Second(object sender, RoutedEventArgs e) => UpdateInterval(60);
         private void MenuItem_Click_120_Second(object sender, RoutedEventArgs e) => UpdateInterval(120);
+
+
+        public static MColor ToMediaColor(DColor color)
+        {
+            return MColor.FromArgb(color.A, color.R, color.G, color.B);
+        }
     }
 }
