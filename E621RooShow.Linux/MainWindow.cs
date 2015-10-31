@@ -17,7 +17,7 @@ namespace E621RooShow.Linux
 
         public MainWindow(MainViewer viewModel) : base(viewModel.Title)
         {
-            AddEvents((int)Gdk.EventMask.ButtonPressMask);
+            AddEvents((int)Gdk.EventMask.ButtonPressMask | (int)Gdk.EventMask.ScrollMask | (int)Gdk.EventMask.KeyReleaseMask);
             this.MainViewer = viewModel;
             MainViewer.PropertyChanged += MainViewer_PropertyChanged;
             CreateControls();
@@ -51,6 +51,10 @@ namespace E621RooShow.Linux
                 }
         }
 
+        protected override bool OnScrollEvent(Gdk.EventScroll evnt)
+        {
+            return base.OnScrollEvent(evnt);
+        }
         protected override bool OnButtonPressEvent(Gdk.EventButton evnt)
         {
             if (evnt.Button == 3) /* right click */
@@ -77,7 +81,7 @@ namespace E621RooShow.Linux
                 var originalSize = Tuple.Create(currentPixbuf.Width, currentPixbuf.Height);
                 var newSize = ImageAspectRatio.ResizeFit(originalSize, maxSize);
                 var newPosition = ImageAspectRatio.Center(newSize, maxSize);
-
+                
                 using (var newPixBuf = currentPixbuf.ScaleSimple(newSize.Item1, newSize.Item2, Gdk.InterpType.Hyper))
                 using (var gc = new Gdk.GC(evnt.Window))
                 {
