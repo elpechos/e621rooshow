@@ -2,8 +2,7 @@
 An application to display a slideshow from e621
 
 
-==How to use ==
-It supports the following controls
+==Controls ==
 *Right click - Set display interval, tags, and tags-blacklist
 *Space - Pause
 *F - Fullscreen
@@ -12,7 +11,6 @@ It supports the following controls
 *Mousewheel - Aoom
 *Left click and drag - Pans the image
 
-Enjoy!
 
 
 ==Windows Install Instructions==
@@ -35,3 +33,6 @@ If people could send me instructions for other distributions I'd be happy to inc
 ==Configuration==
 
 In the .config file you can change the background colour by setting a RGB value from 0,0,0 to 255,255,255
+
+Enjoy!
+
