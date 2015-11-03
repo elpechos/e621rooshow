@@ -36,7 +36,7 @@ namespace E621RooShow.Linux
 
         private void MenuItem_Click_Tags(object o, ButtonPressEventArgs args)
         {
-            AppSettings.Default.Tags = Popup("Enter list of tags seperated by spaces", "Tags", AppSettings.Default.Tags.ToLower());
+            AppSettings.Default.Tags = Popup("Enter list of tags seperated by spaces", "Tags", AppSettings.Default.Tags).ToLower();
             MainViewer.WhiteList = AppSettings.Default.Tags;
             AppSettings.Default.Save();
 
@@ -44,9 +44,10 @@ namespace E621RooShow.Linux
 
         private void MenuItem_Click_Blacklist(object o, ButtonPressEventArgs args)
         {
-
-
-
+            var blackListString = Popup("Enter list of tags to blacklist seperated by spaces", "Tags", MainViewer.BlackList).ToLower();
+            AppSettings.Default.TagsBlacklist = blackListString;
+            MainViewer.BlackList = Settings.Default.TagsBlacklist;
+            AppSettings.Default.Save();
         }
 
         private object currentPixbufLock = new object();

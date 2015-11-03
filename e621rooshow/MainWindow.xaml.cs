@@ -75,14 +75,14 @@ namespace E621RooShow
         }
         private void MenuItem_Click_Tags(object sender, RoutedEventArgs e)
         {
-            Settings.Default.Tags = new InputBox("Enter list of tags seperated by spaces", "Tags", Settings.Default.Tags.ToLower()).ShowDialog().ToLower();
+            Settings.Default.Tags = new InputBox("Enter list of tags seperated by spaces", "Tags", Settings.Default.Tags).ShowDialog().ToLower();
             MainViewer.WhiteList = Settings.Default.Tags;
             Settings.Default.Save();
         }
 
         private void MenuItem_Click_Blacklist(object sender, RoutedEventArgs e)
         {
-            var blackListString = (new InputBox("Enter list of tags to blacklist seperated by spaces", "Tags", string.Join(" ", MainViewer.BlackList)).ShowDialog() ?? string.Empty)
+            var blackListString = (new InputBox("Enter list of tags to blacklist seperated by spaces", "Tags",MainViewer.BlackList).ShowDialog() ?? string.Empty)
                             .ToLower();
             Settings.Default.TagsBlacklist = blackListString;
             MainViewer.BlackList = Settings.Default.TagsBlacklist;
