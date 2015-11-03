@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Gtk;
 using E621RooShow.ViewModels;
 using System.IO;
-using AppSettings = E621RooShow.Linux.Properties.Settings;
 using E621RooShow.Linux.Controls;
 
 namespace E621RooShow.Linux
@@ -18,17 +17,15 @@ namespace E621RooShow.Linux
 
         public MainWindow(MainViewer viewModel) : base(viewModel.Title)
         {
-            var bg = AppSettings.Default.BackgroundColor;
+            this.MainViewer = viewModel;
+
+            var bg = MainViewer.BackgroundColor;
             this.ModifyBg(StateType.Normal, new Gdk.Color(bg.R, bg.G, bg.B));
             AddEvents((int)Gdk.EventMask.ButtonPressMask | (int)Gdk.EventMask.ScrollMask | (int)Gdk.EventMask.KeyPressMask);
-            this.MainViewer = viewModel;
             MainViewer.PropertyChanged += MainViewer_PropertyChanged;
             CreateControls();
 
 
-            MainViewer.BlackList = AppSettings.Default.TagsBlacklist;
-            MainViewer.WhiteList = AppSettings.Default.Tags;
-            MainViewer.Interval = AppSettings.Default.Interval;
 
             this.MainViewer.Start();
         }
@@ -36,18 +33,13 @@ namespace E621RooShow.Linux
 
         private void MenuItem_Click_Tags(object o, ButtonPressEventArgs args)
         {
-            AppSettings.Default.Tags = Popup("Enter list of tags seperated by spaces", "Tags", AppSettings.Default.Tags).ToLower();
-            MainViewer.WhiteList = AppSettings.Default.Tags;
-            AppSettings.Default.Save();
-
+            MainViewer.WhiteList = Popup("Enter list of tags seperated by spaces", "Tags", MainViewer.WhiteList).ToLower();
         }
 
         private void MenuItem_Click_Blacklist(object o, ButtonPressEventArgs args)
         {
-            var blackListString = Popup("Enter list of tags to blacklist seperated by spaces", "Tags", MainViewer.BlackList).ToLower();
-            AppSettings.Default.TagsBlacklist = blackListString;
-            MainViewer.BlackList = Settings.Default.TagsBlacklist;
-            AppSettings.Default.Save();
+            MainViewer.BlackList = Popup("Enter list of tags to blacklist seperated by spaces", "Tags", MainViewer.BlackList).ToLower();
+
         }
 
         private object currentPixbufLock = new object();
@@ -97,7 +89,7 @@ namespace E621RooShow.Linux
                     break;
 
                 case Gdk.Key.Return:
-                    System.Diagnostics.Process.Start($"xdg-open {MainViewer.CurrentImage.E621Url}");
+                    //MainViewer.Exec();
                     break;
             }
 
@@ -140,15 +132,13 @@ namespace E621RooShow.Linux
 
         private void UpdateInterval(int interval)
         {
-            AppSettings.Default.Interval = interval;
-            MainViewer.Interval = AppSettings.Default.Interval;
-            AppSettings.Default.Save();
+            MainViewer.Interval = interval;
         }
 
 
         public string Popup(string content, string title, string defaultText)
         {
-            var box = new InputBox(title, content,defaultText);
+            var box = new InputBox(title, content, defaultText);
             box.Parent = this;
             box.DestroyWithParent = true;
             box.Modal = true;

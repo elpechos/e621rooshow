@@ -28,10 +28,7 @@ namespace E621RooShow
         public MainWindow()
         {
             InitializeComponent();
-            this.Background = new SolidColorBrush(ToMediaColor(Settings.Default.BackgroundColor));
-            MainViewer.BlackList = Settings.Default.TagsBlacklist;
-            MainViewer.WhiteList = Settings.Default.Tags;
-            MainViewer.Interval = Settings.Default.Interval;
+            this.Background = new SolidColorBrush(ToMediaColor(MainViewer.BackgroundColor));
             MainViewer.PropertyChanged += MainViewer_PropertyChanged;
             MainViewer.Start();
         }
@@ -69,28 +66,18 @@ namespace E621RooShow
 
         private void UpdateInterval(int interval)
         {
-            Settings.Default.Interval = interval;
-            MainViewer.Interval = Settings.Default.Interval;
-            Settings.Default.Save();
+            MainViewer.Interval = interval;
         }
         private void MenuItem_Click_Tags(object sender, RoutedEventArgs e)
         {
-            Settings.Default.Tags = new InputBox("Enter list of tags seperated by spaces", "Tags", Settings.Default.Tags).ShowDialog().ToLower();
-            MainViewer.WhiteList = Settings.Default.Tags;
-            Settings.Default.Save();
+            MainViewer.WhiteList = new InputBox("Enter list of tags seperated by spaces", "Tags", MainViewer.WhiteList).ShowDialog().ToLower();
         }
 
         private void MenuItem_Click_Blacklist(object sender, RoutedEventArgs e)
         {
-            var blackListString = (new InputBox("Enter list of tags to blacklist seperated by spaces", "Tags",MainViewer.BlackList).ShowDialog() ?? string.Empty)
-                            .ToLower();
-            Settings.Default.TagsBlacklist = blackListString;
-            MainViewer.BlackList = Settings.Default.TagsBlacklist;
-            Settings.Default.Save();
+            MainViewer.BlackList = (new InputBox("Enter list of tags to blacklist seperated by spaces", "Tags", MainViewer.BlackList).ShowDialog()).ToLower();
         }
 
-
-        private bool isFullScreen = false;
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
 

@@ -9,6 +9,8 @@ using E621RooShow.Services;
 using E621RooShow.Services.Entropy;
 using System.IO;
 using System.Threading;
+using E621RooShow.ViewModels.Properties;
+using System.Drawing;
 
 namespace E621RooShow.ViewModels
 {
@@ -27,7 +29,9 @@ namespace E621RooShow.ViewModels
 
         public MainViewer()
         {
-
+            BlackList = Settings.Default.TagsBlacklist;
+            WhiteList = Settings.Default.Tags;
+            Interval = Settings.Default.Interval;
         }
 
         public void Start()
@@ -246,22 +250,24 @@ namespace E621RooShow.ViewModels
             set
             {
                 blackList = value.ToLower().Split(' ').ToList();
+                Settings.Default.TagsBlacklist = value;
+                Settings.Default.Save();
                 ClearData();
             }
         }
 
-        private string _whiteList;
         public string WhiteList
         {
 
             get
             {
-                return _whiteList;
+                return Settings.Default.Tags;
             }
 
             set
             {
-                _whiteList = value;
+                Settings.Default.Tags = value;
+                Settings.Default.Save();
                 ClearData();
             }
         }
@@ -272,13 +278,14 @@ namespace E621RooShow.ViewModels
         {
             get
             {
-                return _interval;
+                return Settings.Default.Interval;
             }
             set
             {
                 if (_interval <= 0)
                     throw new ArgumentException("Interval must be greater than 0");
-                _interval = value;
+                Settings.Default.Interval = value;
+                Settings.Default.Save();
             }
         }
 
@@ -299,6 +306,20 @@ namespace E621RooShow.ViewModels
         }
 
         public string Title => "Matthew Roo's E621 Slideshow!";
+
+        
+        public Color BackgroundColor
+        {
+            get
+            {
+                return Settings.Default.BackgroundColor;
+            }
+            set
+            {
+                Settings.Default.BackgroundColor = value;
+                Settings.Default.Save();
+            }
+        }
 
         protected void OnPropertyChanged(string propertyName)
         {
