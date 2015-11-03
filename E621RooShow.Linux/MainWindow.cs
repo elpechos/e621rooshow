@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using Gtk;
 using E621RooShow.ViewModels;
 using System.IO;
-
+using AppSettings = E621RooShow.Linux.Properties.Settings;
+using E621RooShow.Linux.Controls;
 
 namespace E621RooShow.Linux
 {
@@ -17,23 +18,35 @@ namespace E621RooShow.Linux
 
         public MainWindow(MainViewer viewModel) : base(viewModel.Title)
         {
-            AddEvents((int)Gdk.EventMask.ButtonPressMask | (int)Gdk.EventMask.ScrollMask | (int)Gdk.EventMask.KeyReleaseMask);
+            var bg = AppSettings.Default.BackgroundColor;
+            this.ModifyBg(StateType.Normal, new Gdk.Color(bg.R, bg.G, bg.B));
+            AddEvents((int)Gdk.EventMask.ButtonPressMask | (int)Gdk.EventMask.ScrollMask | (int)Gdk.EventMask.KeyPressMask);
             this.MainViewer = viewModel;
             MainViewer.PropertyChanged += MainViewer_PropertyChanged;
             CreateControls();
+
+
+            MainViewer.BlackList = AppSettings.Default.TagsBlacklist;
+            MainViewer.WhiteList = AppSettings.Default.Tags;
+            MainViewer.Interval = AppSettings.Default.Interval;
 
             this.MainViewer.Start();
         }
 
 
-        private void Tags_ButtonPressEvent(object o, ButtonPressEventArgs args)
+        private void MenuItem_Click_Tags(object o, ButtonPressEventArgs args)
         {
+            AppSettings.Default.Tags = Popup("Enter list of tags seperated by spaces", "Tags", AppSettings.Default.Tags.ToLower());
+            MainViewer.WhiteList = AppSettings.Default.Tags;
+            AppSettings.Default.Save();
 
         }
 
-        private void Blacklist_ButtonPressEvent(object o, ButtonPressEventArgs args)
+        private void MenuItem_Click_Blacklist(object o, ButtonPressEventArgs args)
         {
-            
+
+
+
         }
 
         private object currentPixbufLock = new object();
@@ -65,7 +78,31 @@ namespace E621RooShow.Linux
 
             return true;
         }
-    
+
+        protected override bool OnKeyPressEvent(Gdk.EventKey evnt)
+        {
+            switch (evnt.Key)
+            {
+                case Gdk.Key.Left:
+                    MainViewer.Back();
+                    break;
+
+                case Gdk.Key.Right:
+                    MainViewer.Next();
+                    break;
+
+                case Gdk.Key.space:
+                    MainViewer.Pause();
+                    break;
+
+                case Gdk.Key.Return:
+                    System.Diagnostics.Process.Start($"xdg-open {MainViewer.CurrentImage.E621Url}");
+                    break;
+            }
+
+            return base.OnKeyPressEvent(evnt);
+        }
+
 
         protected override bool OnExposeEvent(Gdk.EventExpose evnt)
         {
@@ -81,7 +118,7 @@ namespace E621RooShow.Linux
                 var originalSize = Tuple.Create(currentPixbuf.Width, currentPixbuf.Height);
                 var newSize = ImageAspectRatio.ResizeFit(originalSize, maxSize);
                 var newPosition = ImageAspectRatio.Center(newSize, maxSize);
-                
+
                 using (var newPixBuf = currentPixbuf.ScaleSimple(newSize.Item1, newSize.Item2, Gdk.InterpType.Hyper))
                 using (var gc = new Gdk.GC(evnt.Window))
                 {
@@ -89,6 +126,33 @@ namespace E621RooShow.Linux
                 }
             }
             return true;
+        }
+
+        private void MenuItem_Click_1_Second(object sender, ButtonPressEventArgs e) => UpdateInterval(1);
+        private void MenuItem_Click_2_Second(object sender, ButtonPressEventArgs e) => UpdateInterval(2);
+        private void MenuItem_Click_5_Second(object sender, ButtonPressEventArgs e) => UpdateInterval(5);
+        private void MenuItem_Click_10_Second(object sender, ButtonPressEventArgs e) => UpdateInterval(10);
+        private void MenuItem_Click_20_Second(object sender, ButtonPressEventArgs e) => UpdateInterval(20);
+        private void MenuItem_Click_30_Second(object sender, ButtonPressEventArgs e) => UpdateInterval(30);
+        private void MenuItem_Click_60_Second(object sender, ButtonPressEventArgs e) => UpdateInterval(60);
+        private void MenuItem_Click_120_Second(object sender, ButtonPressEventArgs e) => UpdateInterval(120);
+
+        private void UpdateInterval(int interval)
+        {
+            AppSettings.Default.Interval = interval;
+            MainViewer.Interval = AppSettings.Default.Interval;
+            AppSettings.Default.Save();
+        }
+
+
+        public string Popup(string content, string title, string defaultText)
+        {
+            var box = new InputBox(title, content,defaultText);
+            box.Parent = this;
+            box.DestroyWithParent = true;
+            box.Modal = true;
+            box.Run();
+            return box.Text;
         }
     }
 }

@@ -235,9 +235,6 @@ namespace E621RooShow.ViewModels
                 }
             }
         }
-
-        public string CurrentImageUrl { get; private set; }
-
         public string BlackList
 
         {

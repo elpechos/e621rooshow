@@ -17,10 +17,25 @@ namespace E621RooShow.Linux
         {
             CurrentImage = new Image();
             Add(CurrentImage);
+            AddItemToMenu("Tags,", MenuItem_Click_Tags);
+            AddItemToMenu("Tags black list", MenuItem_Click_Blacklist);
+            AddItemToMenu("1 second", MenuItem_Click_1_Second);
+            AddItemToMenu("2 seconds", MenuItem_Click_2_Second);
+            AddItemToMenu("5 seconds", MenuItem_Click_5_Second);
+            AddItemToMenu("10 seconds", MenuItem_Click_10_Second);
+            AddItemToMenu("20 seconds", MenuItem_Click_20_Second);
+            AddItemToMenu("30 seconds", MenuItem_Click_30_Second);
+            AddItemToMenu("60 seconds", MenuItem_Click_60_Second);
+            AddItemToMenu("120 seconds", MenuItem_Click_120_Second);
+        }
 
-            ContextMenu.Add(new MenuItem("Tags") { Name = "tags" });
-            ContextMenu.Add(new MenuItem("Tags Black-list") { Name = "blacklist" });
-            ContextMenu.Add(new MenuItem("1 second"));
+
+
+        private void AddItemToMenu(string text, ButtonPressEventHandler buttonPress)
+        {
+            var menuItem = new MenuItem(text);
+            menuItem.ButtonPressEvent += buttonPress;
+            ContextMenu.Add(menuItem);
         }
     }
 }
