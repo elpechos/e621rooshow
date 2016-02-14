@@ -22,13 +22,13 @@ namespace E621RooShow.Services
 
     public class Post
     {
-        [XmlAttribute("file_url")]
+        [XmlElement("file_url")]
         public string file_url { get; set; }
 
-        [XmlAttribute("tags")]
+        [XmlElement("tags")]
         public string Tags { get; set; }
 
-        [XmlAttribute("id")]
+        [XmlElement("id")]
         public string Id { get; set; }
 
         public List<String> TagList

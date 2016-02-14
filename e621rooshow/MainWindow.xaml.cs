@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using MColor = System.Windows.Media.Color;
 using DColor = System.Drawing.Color;
+using E621RooShow.Windows.ScreenManagement;
+
 namespace E621RooShow
 {
     /// <summary>
@@ -97,6 +99,7 @@ namespace E621RooShow
 
                 case Key.F:
                     FullScreen = !FullScreen;
+                    SleepUtil.PreventSleep();
                     break;
 
                 case Key.Enter:
