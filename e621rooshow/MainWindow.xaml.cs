@@ -36,7 +36,7 @@ namespace E621RooShow
             System.Diagnostics.Trace.Listeners.Add(Listener);
             InitializeComponent();
             this.Background = new SolidColorBrush(ToMediaColor(MainViewer.BackgroundColor));
-            this.traceLabel.Foreground = new SolidColorBrush(ToMediaColor(MainViewer.StatusColor));
+            //this.traceLabel.Foreground = new SolidColorBrush(ToMediaColor(MainViewer.StatusColor));
             MainViewer.PropertyChanged += MainViewer_PropertyChanged;
             MainViewer.Start();
         }
