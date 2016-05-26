@@ -18,7 +18,6 @@ namespace E621RooShow.Linux
             CurrentImage = new Image();
             Add(CurrentImage);
             AddItemToMenu("Tags,", MenuItem_Click_Tags);
-            AddItemToMenu("Tags black list", MenuItem_Click_Blacklist);
             AddItemToMenu("1 second", MenuItem_Click_1_Second);
             AddItemToMenu("2 seconds", MenuItem_Click_2_Second);
             AddItemToMenu("5 seconds", MenuItem_Click_5_Second);

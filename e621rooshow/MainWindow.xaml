@@ -18,8 +18,6 @@
         <ContextMenu>
             <MenuItem  Header="Tags" Click="MenuItem_Click_Tags">
             </MenuItem>
-            <MenuItem  Header="Tags black list" Click="MenuItem_Click_Blacklist">
-            </MenuItem>
             <MenuItem  Header="1 seconds" Click="MenuItem_Click_1_Second">
             </MenuItem>
             <MenuItem  Header="2 seconds" Click="MenuItem_Click_2_Second">

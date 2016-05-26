@@ -24,24 +24,18 @@ namespace E621RooShow.ViewModels
         private List<FileDisplayInfo> filesToDisplay = new List<FileDisplayInfo>();
         private int imageIndex = 0;
         int maxPage = 10000;
-        List<string> blackList = new List<string>();
         private List<string> allowedExtentions = new List<string>() { ".png", ".jpg" };
 
         public MainViewer()
         {
-            BlackList = Settings.Default.TagsBlacklist;
             WhiteList = Settings.Default.Tags;
             Interval = Settings.Default.Interval;
         }
 
         public void Start()
         {
-            //displayTimer = new DispatcherTimer(TimeSpan.FromSeconds(Settings.Default.Interval), DispatcherPriority.Background, (s, e) => DisplayFileTimer(), this.Dispatcher);
-
             StartTask(DownloadFilesThread);
-
             StartTask(GetPagesToDownloadThread);
-
             StartTask(DisplayFileThread);
         }
 
@@ -80,8 +74,9 @@ namespace E621RooShow.ViewModels
             E621Client client = new E621Client();
 
             int page = ThreadSafeRandom.ThisThreadsRandom.Next(maxPage);
-            //Test, get 2nd page of dragon porn
+
             var dragonPorn = client.GetPage(WhiteList, page);
+
             maxPage = (int)(dragonPorn.Count / 75);
             var files = dragonPorn.Posts.ToList();
             files.Shuffle();
@@ -89,12 +84,6 @@ namespace E621RooShow.ViewModels
 
             foreach (var x in files)
             {
-                if (blackList.Intersect(x.TagList).Any())
-                {
-                    System.Diagnostics.Trace.WriteLine($"black listed : {x.file_url}");
-                    continue;
-                }
-
                 var url = new Uri(x.file_url);
                 var urlInfo = new FileInfo(url.AbsolutePath);
 
@@ -239,23 +228,6 @@ namespace E621RooShow.ViewModels
                 }
             }
         }
-        public string BlackList
-
-        {
-            get
-            {
-                return string.Join(" ", blackList);
-            }
-
-            set
-            {
-                blackList = value.ToLower().Split(' ').ToList();
-                Settings.Default.TagsBlacklist = value;
-                Settings.Default.Save();
-                ClearData();
-            }
-        }
-
         public string WhiteList
         {
 
@@ -307,7 +279,7 @@ namespace E621RooShow.ViewModels
 
         public string Title => "Matthew Roo's E621 Slideshow!";
 
-        
+
         public Color BackgroundColor
         {
             get
@@ -317,6 +289,19 @@ namespace E621RooShow.ViewModels
             set
             {
                 Settings.Default.BackgroundColor = value;
+                Settings.Default.Save();
+            }
+        }
+
+        public Color StatusColor
+        {
+            get
+            {
+                return Settings.Default.StatusColor;
+            }
+            set
+            {
+                Settings.Default.StatusColor = value;
                 Settings.Default.Save();
             }
         }

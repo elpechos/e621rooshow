@@ -36,12 +36,6 @@ namespace E621RooShow.Linux
             MainViewer.WhiteList = Popup("Enter list of tags seperated by spaces", "Tags", MainViewer.WhiteList).ToLower();
         }
 
-        private void MenuItem_Click_Blacklist(object o, ButtonPressEventArgs args)
-        {
-            MainViewer.BlackList = Popup("Enter list of tags to blacklist seperated by spaces", "Tags", MainViewer.BlackList).ToLower();
-
-        }
-
         private object currentPixbufLock = new object();
         Gdk.Pixbuf currentPixbuf;
         private void MainViewer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

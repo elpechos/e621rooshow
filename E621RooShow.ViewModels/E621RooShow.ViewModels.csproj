@@ -50,6 +50,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="TraceListeners\LabelTraceWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\e621rooshow.Services\E621RooShow.Services.csproj">

@@ -4,10 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Threading;
 
-namespace E621RooShow.Windows.TraceWriters
+namespace E621RooShow.ViewModels.TraceListeners
 {
     public class LabelTraceWriter : System.Diagnostics.TraceListener, INotifyPropertyChanged
     {

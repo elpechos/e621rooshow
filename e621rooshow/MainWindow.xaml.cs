@@ -16,8 +16,8 @@ using System.Windows.Threading;
 using MColor = System.Windows.Media.Color;
 using DColor = System.Drawing.Color;
 using E621RooShow.Windows.ScreenManagement;
-using E621RooShow.Windows.TraceWriters;
 using System.ComponentModel;
+using E621RooShow.ViewModels.TraceListeners;
 
 namespace E621RooShow
 {
@@ -31,16 +31,17 @@ namespace E621RooShow
 
         public MainWindow()
         {
-            this.DataContext = this;    
+            this.DataContext = this;
             Listener = new LabelTraceWriter();
             System.Diagnostics.Trace.Listeners.Add(Listener);
             InitializeComponent();
             this.Background = new SolidColorBrush(ToMediaColor(MainViewer.BackgroundColor));
+            this.traceLabel.Foreground = new SolidColorBrush(ToMediaColor(MainViewer.StatusColor));
             MainViewer.PropertyChanged += MainViewer_PropertyChanged;
             MainViewer.Start();
         }
 
-        public LabelTraceWriter Listener {get;}
+        public LabelTraceWriter Listener { get; }
 
         private void MainViewer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
@@ -79,12 +80,7 @@ namespace E621RooShow
         }
         private void MenuItem_Click_Tags(object sender, RoutedEventArgs e)
         {
-            MainViewer.WhiteList = new InputBox("Enter list of tags seperated by spaces", "Tags", MainViewer.WhiteList).ShowDialog().ToLower();
-        }
-
-        private void MenuItem_Click_Blacklist(object sender, RoutedEventArgs e)
-        {
-            MainViewer.BlackList = (new InputBox("Enter list of tags to blacklist seperated by spaces", "Tags", MainViewer.BlackList).ShowDialog()).ToLower();
+            MainViewer.WhiteList = new InputBox("Enter list of tags seperated by spaces, prefix with - to blacklist (dragon -fox)", "Tags", MainViewer.WhiteList).ShowDialog().ToLower();
         }
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
@@ -150,7 +146,7 @@ namespace E621RooShow
         private void MenuItem_Click_30_Second(object sender, RoutedEventArgs e) => UpdateInterval(30);
         private void MenuItem_Click_60_Second(object sender, RoutedEventArgs e) => UpdateInterval(60);
         private void MenuItem_Click_120_Second(object sender, RoutedEventArgs e) => UpdateInterval(120);
-                       
+
         private void MenuItem_Status(object sender, RoutedEventArgs e)
         {
             var oldValue = this.ShowStatus;

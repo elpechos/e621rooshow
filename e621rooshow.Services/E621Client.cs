@@ -21,6 +21,7 @@ namespace E621RooShow.Services
         /// <returns></returns>
         public PornPage GetPage(string tags, int page)
         {
+            tags = tags.Trim();
             string url = BaseUrl + $"post/index.xml?tags={tags}&page={page}";
             System.Diagnostics.Trace.WriteLine($"Search {url}");
             var xml = ReadTextFromUrl(url);
