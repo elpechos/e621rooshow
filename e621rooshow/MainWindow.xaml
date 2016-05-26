@@ -8,6 +8,7 @@
         xmlns:custom="clr-namespace:E621RooShow.Controls.Windows;assembly=E621RooShow.Windows.Controls"
         Title="Matthew Roo's e621 SlideShow!" Height="350" Width="525" KeyUp="Window_KeyUp">
     <Grid>
+        <Label Name="traceLabel" Visibility="{Binding ShowStatus}" Background="#00FF0000" Panel.ZIndex="1" Foreground="#FF5DFF00" Content="{Binding Listener.Text}"  />
         <Border>
             <custom:PanAndZoomImage  RenderTransformOrigin="0.5,0.5" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  RenderOptions.EdgeMode="Aliased" x:Name="Image">
             </custom:PanAndZoomImage>
@@ -34,6 +35,8 @@
             <MenuItem  Header="60 seconds" Click="MenuItem_Click_60_Second">
             </MenuItem>
             <MenuItem  Header="120 seconds" Click="MenuItem_Click_120_Second">
+            </MenuItem>
+            <MenuItem  Header="Hide/Show Status" Click="MenuItem_Status">
             </MenuItem>
         </ContextMenu>
     </Window.ContextMenu>

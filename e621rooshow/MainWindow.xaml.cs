@@ -16,24 +16,31 @@ using System.Windows.Threading;
 using MColor = System.Windows.Media.Color;
 using DColor = System.Drawing.Color;
 using E621RooShow.Windows.ScreenManagement;
+using E621RooShow.Windows.TraceWriters;
+using System.ComponentModel;
 
 namespace E621RooShow
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
 
         protected MainViewer MainViewer = new MainViewer();
 
         public MainWindow()
         {
+            this.DataContext = this;    
+            Listener = new LabelTraceWriter();
+            System.Diagnostics.Trace.Listeners.Add(Listener);
             InitializeComponent();
             this.Background = new SolidColorBrush(ToMediaColor(MainViewer.BackgroundColor));
             MainViewer.PropertyChanged += MainViewer_PropertyChanged;
             MainViewer.Start();
         }
+
+        public LabelTraceWriter Listener {get;}
 
         private void MainViewer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
@@ -133,6 +140,7 @@ namespace E621RooShow
             }
         }
 
+        public Visibility ShowStatus { get; set; }
 
         private void MenuItem_Click_1_Second(object sender, RoutedEventArgs e) => UpdateInterval(1);
         private void MenuItem_Click_2_Second(object sender, RoutedEventArgs e) => UpdateInterval(2);
@@ -142,11 +150,30 @@ namespace E621RooShow
         private void MenuItem_Click_30_Second(object sender, RoutedEventArgs e) => UpdateInterval(30);
         private void MenuItem_Click_60_Second(object sender, RoutedEventArgs e) => UpdateInterval(60);
         private void MenuItem_Click_120_Second(object sender, RoutedEventArgs e) => UpdateInterval(120);
+                       
+        private void MenuItem_Status(object sender, RoutedEventArgs e)
+        {
+            var oldValue = this.ShowStatus;
+            if (this.ShowStatus == Visibility.Visible)
+                this.ShowStatus = Visibility.Hidden;
+            else
+                this.ShowStatus = Visibility.Visible;
+
+            OnPropertyChanged("ShowStatus");
+        }
 
 
         public static MColor ToMediaColor(DColor color)
         {
             return MColor.FromArgb(color.A, color.R, color.G, color.B);
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
