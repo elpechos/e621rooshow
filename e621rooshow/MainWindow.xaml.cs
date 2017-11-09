@@ -124,11 +124,14 @@ namespace E621RooShow
                 {
                     this.WindowState = WindowState.Maximized;
                     this.WindowStyle = WindowStyle.None;
+                    this.Topmost = true;
                     Hide();
                     Show();
+
                 }
                 else
                 {
+                    this.Topmost = false;
                     this.WindowState = WindowState.Normal;
                     this.WindowStyle = WindowStyle.SingleBorderWindow;
                 }

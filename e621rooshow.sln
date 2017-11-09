@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E621RooShow.Windows", "e621rooshow\E621RooShow.Windows.csproj", "{405EAFC7-733C-40FF-A48D-DCB9A8506110}"
 EndProject
@@ -11,12 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E621RooShow.Services", "e62
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E621RooShow.ViewModels", "E621RooShow.ViewModels\E621RooShow.ViewModels.csproj", "{4586E697-B659-4F79-BBB1-DEC3A54F163A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E621RooShow.Linux", "E621RooShow.Linux\E621RooShow.Linux.csproj", "{31980081-5A23-4B7A-8D99-247569E60889}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E089FEB7-2762-41EC-BB79-70D7A121F4E3}"
 	ProjectSection(SolutionItems) = preProject
 		README.txt = README.txt
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E621RooShow.Linux", "E621RooShow.Linux\E621RooShow.Linux.csproj", "{31980081-5A23-4B7A-8D99-247569E60889}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

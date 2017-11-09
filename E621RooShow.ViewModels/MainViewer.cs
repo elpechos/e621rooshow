@@ -21,9 +21,8 @@ namespace E621RooShow.ViewModels
         private ConcurrentQueue<FileDownloadInfo> filesToDownload = new ConcurrentQueue<FileDownloadInfo>();
         //queue containing images to display
         private object filesToDisplayLock = new object();
-        private List<FileDisplayInfo> filesToDisplay = new List<FileDisplayInfo>();
-        private int imageIndex = 0;
-        int maxPage = 10000;
+        private CircularBuffer<FileDisplayInfo> imageBuffer = new CircularBuffer<FileDisplayInfo>(40);
+        int maxCount = 0;
         private List<string> allowedExtentions = new List<string>() { ".png", ".jpg" };
 
         public MainViewer()
@@ -73,11 +72,11 @@ namespace E621RooShow.ViewModels
         {
             E621Client client = new E621Client();
 
-            int page = ThreadSafeRandom.ThisThreadsRandom.Next(maxPage);
+            int page = ThreadSafeRandom.ThisThreadsRandom.Next(maxCount);
 
             var dragonPorn = client.GetPage(WhiteList, page);
 
-            maxPage = (int)(dragonPorn.Count / 75);
+            maxCount = (int)dragonPorn.Count;
             var files = dragonPorn.Posts.ToList();
             files.Shuffle();
 
@@ -97,7 +96,7 @@ namespace E621RooShow.ViewModels
         {
             while (true)
             {
-                if (filesToDisplay.Count < 40)
+                if (imageBuffer.Count < 20)
                     try
                     {
                         DownloadFile();
@@ -121,7 +120,7 @@ namespace E621RooShow.ViewModels
                 System.Diagnostics.Trace.WriteLine($"Downloading {fileToDownload.DownloadUrl} {filesToDownload.Count} remaining");
                 var data = client.DownloadData(fileToDownload.DownloadUrl);
                 lock (this.filesToDisplayLock)
-                    filesToDisplay.Add(new FileDisplayInfo() { Data = data, E621Url = fileToDownload.E621Url });
+                    imageBuffer.Add(new FileDisplayInfo() { Data = data, E621Url = fileToDownload.E621Url });
 
             }
         }
@@ -134,7 +133,7 @@ namespace E621RooShow.ViewModels
                 {
                     System.Threading.Thread.Sleep(Interval * 1000);
                     if (!isPaused)
-                        DisplayFile();
+                        DisplayNext(1);
 
                 }
                 catch (Exception ex)
@@ -145,37 +144,13 @@ namespace E621RooShow.ViewModels
             }
         }
 
+
         private void DisplayFile()
         {
             lock (filesToDisplayLock)
             {
-                if (this.imageIndex < 20)
-                    this.imageIndex++;
-                else
-                    this.filesToDisplay.RemoveAt(0);
-
-                if (this.imageIndex > 20)
-                    this.imageIndex = 20;
-
-                DisplayFile(this.imageIndex);
-            }
-        }
-
-        private void DisplayFile(int index)
-        {
-            lock (filesToDisplayLock)
-            {
-                if (filesToDisplay.Count == 0)
-                    return;
-
-                if (index > (filesToDisplay.Count - 1))
-                    index = filesToDisplay.Count - 1;
-
-                if (index < 0)
-                    return;
-
-                this.CurrentImage = filesToDisplay[index];
-                System.Diagnostics.Trace.WriteLine($"{filesToDisplay.Count} files left to display, index {index}");
+                this.CurrentImage = imageBuffer.Current;
+                System.Diagnostics.Trace.WriteLine($"{imageBuffer.Count} files left to display, Tail {imageBuffer.Tail}");
             }
         }
 
@@ -187,8 +162,8 @@ namespace E621RooShow.ViewModels
             {
                 FileDownloadInfo ignored;
                 while (filesToDownload.TryDequeue(out ignored)) ;
-                filesToDisplay.Clear();
-                this.imageIndex = 0;
+                imageBuffer.Clear();
+                maxCount = 0;
             }
         }
 
@@ -197,15 +172,12 @@ namespace E621RooShow.ViewModels
         {
             lock (this.filesToDisplayLock)
             {
-                this.imageIndex += next;
+                if (next > 0)
+                    imageBuffer.MoveNext();
+                else
+                    imageBuffer.MovePrevious();
 
-                if (this.imageIndex > this.filesToDisplay.Count - 1)
-                    this.imageIndex = this.filesToDisplay.Count - 1;
-
-                if (this.imageIndex < 0)
-                    this.imageIndex = 0;
-
-                DisplayFile(this.imageIndex);
+                DisplayFile();
             }
         }
 

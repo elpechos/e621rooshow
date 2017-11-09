@@ -17,12 +17,15 @@ namespace E621RooShow.Services
         /// Gets a page of posts, will return 100
         /// </summary>
         /// <param name="tags"></param>
-        /// <param name="page"></param>
+        /// <param name="beforeId"></param>
         /// <returns></returns>
-        public PornPage GetPage(string tags, int page)
+        public PornPage GetPage(string tags, int beforeId, int limit = 75)
         {
             tags = tags.Trim();
-            string url = BaseUrl + $"post/index.xml?tags={tags}&page={page}";
+            string url = BaseUrl + $"post/index.xml?tags={tags}";
+            if (beforeId != 0)
+                url += $"&limit={limit}&before_id={beforeId + limit}";
+
             System.Diagnostics.Trace.WriteLine($"Search {url}");
             var xml = ReadTextFromUrl(url);
             var serializer = new XmlSerializer(typeof(PornPage));

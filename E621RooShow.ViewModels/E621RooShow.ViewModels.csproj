@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CircularBuffer.cs" />
     <Compile Include="FileDisplayInfo.cs" />
     <Compile Include="ImageAspectRatio.cs" />
     <Compile Include="MainViewer.cs" />
