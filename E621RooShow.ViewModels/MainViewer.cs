@@ -76,11 +76,17 @@ namespace E621RooShow.ViewModels
 
             var dragonPorn = client.GetPage(WhiteList, page);
 
+            if (maxCount > 0)
+                AddFilesToDownload(dragonPorn);
+
             maxCount = (int)dragonPorn.Count;
+
+        }
+
+        private void AddFilesToDownload(PornPage dragonPorn)
+        {
             var files = dragonPorn.Posts.ToList();
             files.Shuffle();
-
-
             foreach (var x in files)
             {
                 var url = new Uri(x.file_url);

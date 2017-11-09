@@ -10,7 +10,6 @@ namespace E621RooShow.ViewModels
     {
         public byte[] Data { get; set; }
         public string E621Url { get; set; }
-
     }
 
 

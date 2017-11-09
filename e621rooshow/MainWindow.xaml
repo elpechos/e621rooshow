@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:E621RooShow"
         mc:Ignorable="d"
         xmlns:custom="clr-namespace:E621RooShow.Controls.Windows;assembly=E621RooShow.Windows.Controls"
-        Title="Matthew Roo's e621 SlideShow!" Height="350" Width="525" KeyUp="Window_KeyUp">
+        Title="Matthew Roo's e621 SlideShow!" Height="350" Width="525" KeyUp="Window_KeyUp" MouseDoubleClick="Window_MouseDoubleClick">
     <Grid>
         <Label Name="traceLabel" Visibility="{Binding ShowStatus}" Background="#00FF0000" Panel.ZIndex="1" Foreground="#FF5DFF00" Content="{Binding Listener.Text}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
         <Border>

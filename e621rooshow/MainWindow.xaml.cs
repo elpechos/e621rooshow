@@ -102,7 +102,7 @@ namespace E621RooShow
 
                 case Key.F:
                     FullScreen = !FullScreen;
-                    SleepUtil.PreventSleep();
+                    //SleepUtil.PreventSleep();
                     break;
 
                 case Key.Enter:
@@ -173,6 +173,11 @@ namespace E621RooShow
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void Window_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            FullScreen = !FullScreen;
         }
     }
 }
