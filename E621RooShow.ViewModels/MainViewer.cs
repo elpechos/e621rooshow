@@ -78,8 +78,8 @@ namespace E621RooShow.ViewModels
 
             if (maxCount > 0)
                 AddFilesToDownload(dragonPorn);
-
-            maxCount = (int)dragonPorn.Count;
+            else
+                maxCount = (int)dragonPorn.Count;
 
         }
 
@@ -123,8 +123,8 @@ namespace E621RooShow.ViewModels
                 return;
             using (var client = new System.Net.WebClient())
             {
-                System.Diagnostics.Trace.WriteLine($"Downloading {fileToDownload.DownloadUrl} {filesToDownload.Count} remaining");
                 var data = client.DownloadData(fileToDownload.DownloadUrl);
+                System.Diagnostics.Trace.WriteLine($"Downloaded {fileToDownload.DownloadUrl} {filesToDownload.Count} remaining");
                 lock (this.filesToDisplayLock)
                     imageBuffer.Add(new FileDisplayInfo() { Data = data, E621Url = fileToDownload.E621Url });
 
