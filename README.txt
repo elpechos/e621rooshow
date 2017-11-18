@@ -8,7 +8,7 @@ An application to display a slideshow from e621
 *F - Fullscreen
 *Left and right arrow keys - Browse through buffered images
 *Enter - Brings up the e621 post web-page for the current image.
-*Mousewheel - Aoom
+*Mousewheel - Zoom
 *Left click and drag - Pans the image
 
 

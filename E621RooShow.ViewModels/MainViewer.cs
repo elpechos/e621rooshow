@@ -22,7 +22,6 @@ namespace E621RooShow.ViewModels
         //queue containing images to display
         private object filesToDisplayLock = new object();
         private CircularBuffer<FileDisplayInfo> imageBuffer = new CircularBuffer<FileDisplayInfo>(40);
-        int maxCount = 0;
         private List<string> allowedExtentions = new List<string>() { ".png", ".jpg" };
 
         public MainViewer()
@@ -72,15 +71,10 @@ namespace E621RooShow.ViewModels
         {
             E621Client client = new E621Client();
 
-            int page = ThreadSafeRandom.ThisThreadsRandom.Next(maxCount);
+            var dragonPorn = client.GetPage(WhiteList);
 
-            var dragonPorn = client.GetPage(WhiteList, page);
 
-            if (maxCount > 0)
-                AddFilesToDownload(dragonPorn);
-            else
-                maxCount = (int)dragonPorn.Count;
-
+            AddFilesToDownload(dragonPorn);
         }
 
         private void AddFilesToDownload(PornPage dragonPorn)
@@ -169,7 +163,6 @@ namespace E621RooShow.ViewModels
                 FileDownloadInfo ignored;
                 while (filesToDownload.TryDequeue(out ignored)) ;
                 imageBuffer.Clear();
-                maxCount = 0;
             }
         }
 

@@ -19,13 +19,10 @@ namespace E621RooShow.Services
         /// <param name="tags"></param>
         /// <param name="beforeId"></param>
         /// <returns></returns>
-        public PornPage GetPage(string tags, int beforeId, int limit = 75)
+        public PornPage GetPage(string tags, int limit = 75)
         {
             tags = tags.Trim();
-            string url = BaseUrl + $"post/index.xml?tags={tags}";
-            if (beforeId != 0)
-                url += $"&limit={limit}&before_id={beforeId + limit}";
-
+            string url = BaseUrl + $"post/index.xml?tags=order:random {tags}";
             System.Diagnostics.Trace.WriteLine($"Search {url}");
             var xml = ReadTextFromUrl(url);
             var serializer = new XmlSerializer(typeof(PornPage));
