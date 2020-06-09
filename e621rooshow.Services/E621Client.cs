@@ -6,6 +6,8 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
+
 namespace E621RooShow.Services
 {
     public class E621Client
@@ -22,11 +24,11 @@ namespace E621RooShow.Services
         public PornPage GetPage(string tags, int limit = 75)
         {
             tags = tags.Trim();
-            string url = BaseUrl + $"post/index.xml?tags=order:random {tags}";
+            string url = BaseUrl + $"posts.json?tags=order:random {tags}";
             System.Diagnostics.Trace.WriteLine($"Search {url}");
             var xml = ReadTextFromUrl(url);
-            var serializer = new XmlSerializer(typeof(PornPage));
-            return (PornPage)serializer.Deserialize(new System.IO.StringReader(xml));
+            var result = JsonConvert.DeserializeObject<PornPage>(xml);
+            return result;
         }
 
 
@@ -36,7 +38,12 @@ namespace E621RooShow.Services
             // Assume UTF8, but detect BOM - could also honor response charset I suppose
             using (var client = new WebClient())
             {
-                client.Headers.Add("user-agent", "e621rooshow");
+                //string userName = "cheeseypoofs";
+                //string password = "vNSsN3FfmC37QU3pMHfxj3db";
+                //string credentials = Convert.ToBase64String(
+                //Encoding.ASCII.GetBytes(userName + ":" + password));
+                //client.Headers.Add(HttpRequestHeader.Authorization,$"Basic {credentials}");
+                client.Headers.Add("user-agent", "e621rooshow/1.0 (by cheeseypoofs on e621)");
                 using (var stream = client.OpenRead(url))
                 using (var textReader = new StreamReader(stream, Encoding.UTF8, true))
                 {
