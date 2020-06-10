@@ -81,13 +81,13 @@ namespace E621RooShow.ViewModels
         {
             var files = dragonPorn.Posts.ToList();
             files.Shuffle();
-            foreach (var x in files.Where(x=>x.File != null && x.File.Url != null))
+            foreach (var x in files.Where(x=>x.File != null && x.File.RebuiltUrl != null))
             {
-                var url = new Uri(x.File.Url);
+                var url = new Uri(x.File.RebuiltUrl);
                 var urlInfo = new FileInfo(url.AbsolutePath);
 
                 if (allowedExtentions.Contains(urlInfo.Extension))
-                    filesToDownload.Enqueue(new FileDownloadInfo() { DownloadUrl = x.File.Url, E621Url = $"https://e621.net/post/show/{x.Id}/" });
+                    filesToDownload.Enqueue(new FileDownloadInfo() { DownloadUrl = x.File.RebuiltUrl, E621Url = $"https://e621.net/post/show/{x.Id}/" });
             }
         }
 
