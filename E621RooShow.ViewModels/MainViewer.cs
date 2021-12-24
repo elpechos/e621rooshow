@@ -118,8 +118,6 @@ namespace E621RooShow.ViewModels
                 return;
             using (var client = new System.Net.WebClient())
             {
-                ServicePointManager.Expect100Continue = true;
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 var data = client.DownloadData(fileToDownload.DownloadUrl);
                 System.Diagnostics.Trace.WriteLine($"Downloaded {fileToDownload.DownloadUrl} {filesToDownload.Count} remaining");
                 lock (this.filesToDisplayLock)
