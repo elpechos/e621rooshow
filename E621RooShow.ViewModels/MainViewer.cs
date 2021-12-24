@@ -11,6 +11,7 @@ using System.IO;
 using System.Threading;
 using E621RooShow.ViewModels.Properties;
 using System.Drawing;
+using System.Net;
 
 namespace E621RooShow.ViewModels
 {
@@ -117,6 +118,8 @@ namespace E621RooShow.ViewModels
                 return;
             using (var client = new System.Net.WebClient())
             {
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 var data = client.DownloadData(fileToDownload.DownloadUrl);
                 System.Diagnostics.Trace.WriteLine($"Downloaded {fileToDownload.DownloadUrl} {filesToDownload.Count} remaining");
                 lock (this.filesToDisplayLock)
@@ -285,4 +288,6 @@ namespace E621RooShow.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
     }
+
+
 }
