@@ -1,6 +1,5 @@
 ﻿using E621RooShow.ViewModels;
 using E621RooShow.Windows.Properties;
-using E621RooShow.XmlApi;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

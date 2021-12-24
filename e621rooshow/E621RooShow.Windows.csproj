@@ -76,8 +76,6 @@
     <Compile Include="Inputbox.cs" />
     <Compile Include="ScreenManagement\SleepUtil.cs" />
     <Compile Include="shuffle.cs" />
-    <Compile Include="XmlApi\E621Client.cs" />
-    <Compile Include="XmlApi\Post.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
